@@ -15,27 +15,19 @@ public class HashTable {
 
     private int hash(String str) {
         int hash = str.hashCode() % tamanho;
-        System.out.println("Hash =" + Math.abs(hash));
         return Math.abs(hash);
     }
 
     public void insere(String str) {
         int indice = hash(str);
         tabela[indice].addLast(str);
-        System.out.println("Inserido " + str);
     }
 
     public boolean busca(String str) {
         LinkedList<String> pos = tabela[hash(str)];
         if (!pos.isEmpty()) {
-            for(String i : pos) {
-                if (i == str) {
-                    System.out.println("Achei " + str);
-                    return true;
-                }
-            }
+            return pos.contains(str);
         }
-        System.out.println("Nao achei " + str);
         return false;
     }
 
@@ -45,10 +37,26 @@ public class HashTable {
             for(String i : tabela[indice]) {
                 if (i == str) {
                     tabela[indice].remove(i.indexOf(i));
-                    System.out.println("Removido " + str);
                     return;
                 }
             }
         }
     }
+
+    public boolean tabelaVazia() {
+        for(LinkedList<String> i : tabela) {
+            if (!i.isEmpty()) return false;
+        }
+        return true;
+    }
+
+    public LinkedList<String>[] getTabela() {
+        return tabela;
+    }
+
+    public int getTamanho() {
+        return tamanho;
+    }
+
+    
 }
